@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-export default function IPCard({ ip, liked, onToggle }) {
+export default function IPCard({ ip, liked, onToggle, inCart = 0, onAddCart }) {
   const [photo, setPhoto] = useState(null) // Pixabay API 결과 { url, page, user }
   const [imgOk, setImgOk] = useState(true)
 
@@ -34,9 +34,16 @@ export default function IPCard({ ip, liked, onToggle }) {
             사진: <a href={photo.page} target="_blank" rel="noreferrer">{photo.user}</a> / Pixabay
           </p>
         )}
-        <button className={liked ? 'like on' : 'like'} onClick={() => onToggle(ip.id)}>
-          {liked ? '♥ 좋아요 취소' : '♡ 좋아요'}
-        </button>
+        <div className="actions">
+          <button className={liked ? 'like on' : 'like'} onClick={() => onToggle(ip.id)}>
+            {liked ? '♥ 좋아요 취소' : '♡ 좋아요'}
+          </button>
+          {onAddCart && (
+            <button className="cart-btn" onClick={() => onAddCart(ip.id)}>
+              🛒 담기{inCart > 0 ? ` (${inCart})` : ''}
+            </button>
+          )}
+        </div>
       </div>
     </article>
   )

@@ -56,3 +56,46 @@ create policy "likes_insert_own" on public.likes
 drop policy if exists "likes_delete_own" on public.likes;
 create policy "likes_delete_own" on public.likes
   for delete using (auth.uid() = user_id);
+
+-- 5) 장바구니
+create table if not exists public.cart_items (
+  user_id uuid not null references auth.users(id) on delete cascade,
+  ip_id text not null,
+  quantity integer not null default 1 check (quantity > 0),
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now(),
+  primary key (user_id, ip_id)
+);
+
+create or replace function public.set_cart_updated_at()
+returns trigger
+language plpgsql
+as $$
+begin
+  new.updated_at = now();
+  return new;
+end;
+$$;
+
+drop trigger if exists cart_items_set_updated_at on public.cart_items;
+create trigger cart_items_set_updated_at
+  before update on public.cart_items
+  for each row execute function public.set_cart_updated_at();
+
+alter table public.cart_items enable row level security;
+
+drop policy if exists "cart_select_own" on public.cart_items;
+create policy "cart_select_own" on public.cart_items
+  for select using (auth.uid() = user_id);
+
+drop policy if exists "cart_insert_own" on public.cart_items;
+create policy "cart_insert_own" on public.cart_items
+  for insert with check (auth.uid() = user_id);
+
+drop policy if exists "cart_update_own" on public.cart_items;
+create policy "cart_update_own" on public.cart_items
+  for update using (auth.uid() = user_id) with check (auth.uid() = user_id);
+
+drop policy if exists "cart_delete_own" on public.cart_items;
+create policy "cart_delete_own" on public.cart_items
+  for delete using (auth.uid() = user_id);

@@ -1,10 +1,12 @@
 import { Link, NavLink, Navigate, Route, Routes, useNavigate } from 'react-router-dom'
 import { useAuth } from './AuthContext'
+import { CartProvider, useCart } from './CartContext'
 import { isConfigured, supabase } from './supabase'
 import Home from './pages/Home'
 import Signup from './pages/Signup'
 import Login from './pages/Login'
 import MyPage from './pages/MyPage'
+import Cart from './pages/Cart'
 
 function Protected({ children }) {
   const { user, loading } = useAuth()
@@ -12,8 +14,9 @@ function Protected({ children }) {
   return user ? children : <Navigate to="/login" replace />
 }
 
-export default function App() {
+function AppInner() {
   const { user } = useAuth()
+  const { count } = useCart()
   const navigate = useNavigate()
 
   const logout = async () => {
@@ -29,6 +32,7 @@ export default function App() {
           <NavLink to="/">홈</NavLink>
           {user ? (
             <>
+              <NavLink to="/cart">🛒 장바구니{count > 0 ? ` (${count})` : ''}</NavLink>
               <NavLink to="/mypage">마이페이지</NavLink>
               <button className="link" onClick={logout}>로그아웃</button>
             </>
@@ -51,6 +55,7 @@ export default function App() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
           <Route path="/mypage" element={<Protected><MyPage /></Protected>} />
+          <Route path="/cart" element={<Protected><Cart /></Protected>} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </main>
@@ -58,5 +63,13 @@ export default function App() {
         이미지 출처: <a href="https://pixabay.com" target="_blank" rel="noreferrer">Pixabay</a> (Pixabay 콘텐츠 라이선스)
       </footer>
     </>
+  )
+}
+
+export default function App() {
+  return (
+    <CartProvider>
+      <AppInner />
+    </CartProvider>
   )
 }
