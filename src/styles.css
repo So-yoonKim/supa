@@ -32,3 +32,6 @@ button.link { background: none; border: 0; cursor: pointer; font: inherit; color
 .ok { color: var(--main); margin: 0; }
 .center { text-align: center; }
 .footer { text-align: center; padding: 28px; color: #6b7280; font-size: .85rem; }
+
+.credit { font-size: 12px; opacity: .65; margin: 6px 0 0; }
+.credit a { color: inherit; }
