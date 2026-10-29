@@ -48,7 +48,7 @@ export function CartProvider({ children }) {
     [user]
   )
 
-  const add = useCallback((ipId) => setQuantity(ipId, (items[ipId] ?? 0) + 1), [items, setQuantity])
+  const add = useCallback((ipId, n = 1) => setQuantity(ipId, Math.min(99, (items[ipId] ?? 0) + n)), [items, setQuantity])
   const remove = useCallback((ipId) => setQuantity(ipId, 0), [setQuantity])
 
   const count = useMemo(() => Object.values(items).reduce((a, b) => a + b, 0), [items])

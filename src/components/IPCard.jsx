@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 export default function IPCard({ ip, liked, onToggle, inCart = 0, onAddCart }) {
   const [photo, setPhoto] = useState(null) // Pixabay API 결과 { url, page, user }
   const [imgOk, setImgOk] = useState(true)
+  const [qty, setQty] = useState(1) // 담을 수량
 
   useEffect(() => {
     let alive = true
@@ -39,9 +40,16 @@ export default function IPCard({ ip, liked, onToggle, inCart = 0, onAddCart }) {
             {liked ? '♥ 좋아요 취소' : '♡ 좋아요'}
           </button>
           {onAddCart && (
-            <button className="cart-btn" onClick={() => onAddCart(ip.id)}>
-              🛒 담기{inCart > 0 ? ` (${inCart})` : ''}
-            </button>
+            <>
+              <div className="qty pick">
+                <button onClick={() => setQty((q) => Math.max(1, q - 1))} aria-label="수량 감소">−</button>
+                <span>{qty}</span>
+                <button onClick={() => setQty((q) => Math.min(99, q + 1))} aria-label="수량 증가">+</button>
+              </div>
+              <button className="cart-btn" onClick={() => onAddCart(ip.id, qty)}>
+                🛒 담기{inCart > 0 ? ` (${inCart})` : ''}
+              </button>
+            </>
           )}
         </div>
       </div>

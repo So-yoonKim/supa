@@ -20,13 +20,13 @@ export default function Home() {
     await toggle(id)
   }
 
-  const onAddCart = async (id) => {
+  const onAddCart = async (id, n = 1) => {
     if (!user) {
       alert('장바구니는 로그인 후 이용할 수 있어요.')
       navigate('/login')
       return
     }
-    await add(id)
+    await add(id, n)
   }
 
   return (
