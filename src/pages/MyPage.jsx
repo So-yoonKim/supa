@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { supabase } from '../supabase'
 import { useAuth } from '../AuthContext'
-import { IPS } from '../data'
+import { PRODUCTS } from '../data'
 import IPCard from '../components/IPCard'
 import { useLikes } from '../useLikes'
 
@@ -35,7 +35,7 @@ export default function MyPage() {
     else setMsg('저장했어요.')
   }
 
-  const liked = IPS.filter((ip) => likes.has(ip.id))
+  const liked = PRODUCTS.filter((ip) => likes.has(ip.id))
 
   return (
     <div className="mypage">
@@ -47,9 +47,9 @@ export default function MyPage() {
         {msg && <p className="ok">{msg}</p>}
         <button>닉네임 저장</button>
       </form>
-      <h2 className="center">내가 좋아요한 IP ({liked.length})</h2>
+      <h2 className="center">내가 좋아요한 상품 ({liked.length})</h2>
       {liked.length === 0 ? (
-        <p className="center">아직 좋아요한 IP가 없어요. 홈에서 눌러 보세요!</p>
+        <p className="center">아직 좋아요한 상품이 없어요. 홈에서 눌러 보세요!</p>
       ) : (
         <section className="grid">
           {liked.map((ip) => (

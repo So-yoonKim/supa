@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom'
-import { IPS } from '../data'
+import { PRODUCTS } from '../data'
 import { useCart } from '../CartContext'
 
 export default function Cart() {
   const { items, count, setQuantity, remove, error } = useCart()
-  const rows = IPS.filter((ip) => items[ip.id])
+  const rows = PRODUCTS.filter((ip) => items[ip.id])
 
   return (
     <section className="cart">
@@ -12,7 +12,7 @@ export default function Cart() {
       {error && <p className="error">{error}</p>}
       {rows.length === 0 ? (
         <p className="center">
-          장바구니가 비어 있어요. <Link to="/">IP 둘러보기</Link>
+          장바구니가 비어 있어요. <Link to="/">상품 둘러보기</Link>
         </p>
       ) : (
         <ul className="cart-list">

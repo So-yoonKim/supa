@@ -20,7 +20,7 @@ export default function IPCard({ ip, liked, onToggle, inCart = 0, onAddCart }) {
   return (
     <article className="card">
       <div className="thumb">
-        {imgOk ? (
+        {imgOk && src ? (
           <img src={src} alt={ip.name} onError={onError} loading="lazy" />
         ) : (
           <span className="emoji">{ip.emoji}</span>

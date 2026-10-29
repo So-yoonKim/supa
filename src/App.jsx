@@ -27,7 +27,7 @@ function AppInner() {
   return (
     <>
       <header className="nav">
-        <Link to="/" className="logo">🌊 제주 IP 도감</Link>
+        <Link to="/" className="logo">🍊 제주로마트 온라인몰</Link>
         <nav>
           <NavLink to="/">홈</NavLink>
           {user ? (
