@@ -1,0 +1,43 @@
+// image: public/images 안에 Pixabay에서 받은 파일을 넣으면 표시됩니다. 없으면 이모지로 대체됩니다.
+export const IPS = [
+  {
+    id: 'dolhareubang',
+    name: '돌하르방',
+    emoji: '🗿',
+    image: '/images/dolhareubang.jpg',
+    tagline: '제주의 수호신',
+    desc: '현무암을 깎아 만든 제주의 상징. 마을 입구를 지키며 액운을 막아 준다고 전해집니다.',
+  },
+  {
+    id: 'haenyeo',
+    name: '해녀',
+    emoji: '🤿',
+    image: '/images/haenyeo.jpg',
+    tagline: '바다의 어머니',
+    desc: '숨 하나로 바다에 들어 전복과 소라를 캐는 제주 해녀. 유네스코 인류무형문화유산입니다.',
+  },
+  {
+    id: 'hallabong',
+    name: '한라봉',
+    emoji: '🍊',
+    image: '/images/hallabong.jpg',
+    tagline: '한라산을 닮은 감귤',
+    desc: '꼭지가 볼록 솟아 한라산을 닮은 달콤한 과일. 겨울 제주의 대표 특산물입니다.',
+  },
+  {
+    id: 'blackpork',
+    name: '흑돼지',
+    emoji: '🐖',
+    image: '/images/blackpork.jpg',
+    tagline: '고소한 제주의 맛',
+    desc: '쫄깃한 식감과 깊은 풍미로 사랑받는 제주 토종 흑돼지.',
+  },
+  {
+    id: 'gotjawal',
+    name: '곶자왈',
+    emoji: '🌳',
+    image: '/images/gotjawal.jpg',
+    tagline: '제주의 숨골 숲',
+    desc: '용암 암괴 위에 형성된 원시림. 다양한 동식물이 살아가는 제주의 허파입니다.',
+  },
+]
