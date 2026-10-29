@@ -99,3 +99,12 @@ create policy "cart_update_own" on public.cart_items
 drop policy if exists "cart_delete_own" on public.cart_items;
 create policy "cart_delete_own" on public.cart_items
   for delete using (auth.uid() = user_id);
+
+-- 6) 테이블을 만들기 전에 이미 가입한 사용자의 프로필 채우기 (트리거는 새 가입자에게만 동작)
+insert into public.profiles (id, nickname)
+select id, split_part(email, '@', 1) from auth.users
+on conflict (id) do nothing;
+
+-- 7) API 가 새 테이블을 바로 인식하도록 스키마 캐시 새로고침
+--    ("Could not find the table ... in the schema cache" 오류 방지)
+notify pgrst, 'reload schema';
